@@ -14,21 +14,21 @@ pipeline {
         // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
        // IBM_CLOUD_DEVOPS_CREDS = credentials('BM_CRED')
         IBM_CLOUD_DEVOPS_API_KEY = credentials('API_KEY')
-        IBM_CLOUD_DEVOPS_ORG = 'fuse@jp.ibm.com'
-        IBM_CLOUD_DEVOPS_APP_NAME = 'WheatherApp-20170525GVT'
-        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '6bc113bb-5331-493c-8da1-45631fc33adf'
-        IBM_CLOUD_DEVOPS_WEBHOOK_URL = 'https://jenkins:f761d3a3-b620-45a6-9e15-d4a52a4eb211:b8e4b101-cacd-4997-bdac-1a62047f7cec@devops-api-integration.stage1.ng.bluemix.net/v1/toolint/messaging/webhook/publish'
+        IBM_CLOUD_DEVOPS_ORG = 'bjwbdong@cn.ibm.com'
+        IBM_CLOUD_DEVOPS_APP_NAME = 'devopsinsights-toolchain-gb1€Ⅰ㐂دᠢꀉ༒通郂㊣'
+        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '36c75e2f-bb57-4607-ac6f-598530a1b5db'
+        IBM_CLOUD_DEVOPS_WEBHOOK_URL = 'https://jenkins:4f9c2a7c-77b3-4d86-8342-b92a7d0a8b39:87509eed-34de-40d5-be09-8ae143a56319@devops-api-integration.stage1.ng.bluemix.net/v1/toolint/messaging/webhook/publish'
     }
     tools {
        nodejs 'recent'
    }
     stages {
-        stage('ビルド') {
+        stage('通€㐀ᠠꀇ༐بة㊣郂') {
             environment {
                 // get git commit from Jenkins
                 GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 GIT_BRANCH = 'master'
-                GIT_REPO = "https://github.com/mfuse/devopsinsights-toolchain-20170525GVT"
+                GIT_REPO = "https://github.com/WeberDong/devopsinsights-toolchain-gb1-"
             }
             steps {
                 checkout scm
@@ -46,7 +46,7 @@ pipeline {
                 }
             }
         }
-        stage('単体テストとコードカバレッジ') {
+        stage('€Ⅰ㐂دᠢꀉ༒通郂㊣') {
             steps {
                 sh 'grunt dev-test-cov --no-color -f'
             }
@@ -61,7 +61,7 @@ pipeline {
         }
                stage('SCM') {
             steps {
-                git 'https://github.com/mfuse/devopsinsights-toolchain-20170525GVT.git'
+                git 'https://github.com/WeberDong/devopsinsights-toolchain-gb1-'
             }
         }
         stage ('SonarQube analysis') {
@@ -74,7 +74,7 @@ pipeline {
 
                         env.SQ_HOSTNAME = SONAR_HOST_URL;
                         env.SQ_AUTHENTICATION_TOKEN = SONAR_AUTH_TOKEN;
-                        env.SQ_PROJECT_KEY = "devopsinsights-toolchain-20170525GVT";
+                        env.SQ_PROJECT_KEY = "devopsinsights-toolchain-gb1-";
                        
 
                       sh "${scannerHome}/bin/sonar-scanner \
@@ -114,14 +114,14 @@ pipeline {
                 }
             }
         }
-        stage('ステージングにデプロイ') {
+        stage('㘎Ⅰ€b㐅㐆ᠤꀍ༖瞳༗بةتثخد郂㊣') {
             steps {
                 // Push the Weather App to Bluemix, staging space
                 sh '''
                         echo "CF ログイン..."
                         cf api https://api.stage1.ng.bluemix.net
-                     #  cf login -u $IBM_CLOUD_DEVOPS_CREDS_USR -p $IBM_CLOUD_DEVOPS_CREDS_PSW -o $IBM_CLOUD_DEVOPS_ORG -s ステージング
-                        cf login -u apikey -p $IBM_CLOUD_DEVOPS_API_KEY -o $IBM_CLOUD_DEVOPS_ORG -s ステージング
+                     #  cf login -u $IBM_CLOUD_DEVOPS_CREDS_USR -p $IBM_CLOUD_DEVOPS_CREDS_PSW -o $IBM_CLOUD_DEVOPS_ORG -s 秊Ⅰ€㐇༘༙同ᠥꀎبةتثجحخد郂㊣
+                        cf login -u apikey -p $IBM_CLOUD_DEVOPS_API_KEY -o $IBM_CLOUD_DEVOPS_ORG -s 秊Ⅰ€㐇༘༙同ᠥꀎبةتثجحخد郂㊣
                         
                         echo "デプロイ中...."
                         export CF_APP_NAME="staging-$IBM_CLOUD_DEVOPS_APP_NAME"
@@ -168,7 +168,7 @@ pipeline {
             steps {
                 // use "evaluateGate" method to leverage IBM Cloud DevOps gate
            //     evaluateGate policy: 'Weather App Policy', forceDecision: 'true'
-          evaluateGate policy: '天気予報アプリポリシー①', forceDecision: 'true'
+          evaluateGate policy: 'Ⅰgb1€酮خد㐁ᠡꀈ༑㘚郂', forceDecision: 'true'
             }
         }
         stage('実稼働にデプロイ') {
@@ -177,8 +177,8 @@ pipeline {
                 sh '''
                         echo "CF ログイン..."
                         cf api https://api.stage1.ng.bluemix.net
-                      # cf login -u $IBM_CLOUD_DEVOPS_CREDS_USR -p $IBM_CLOUD_DEVOPS_CREDS_PSW -o $IBM_CLOUD_DEVOPS_ORG -s 実稼働
-                        cf login -u apikey -p $IBM_CLOUD_DEVOPS_API_KEY -o $IBM_CLOUD_DEVOPS_ORG -s 実稼働
+                      # cf login -u $IBM_CLOUD_DEVOPS_CREDS_USR -p $IBM_CLOUD_DEVOPS_CREDS_PSW -o $IBM_CLOUD_DEVOPS_ORG -s gb1€Ⅰ㐂دᠢꀉ༒通郂
+                        cf login -u apikey -p $IBM_CLOUD_DEVOPS_API_KEY -o $IBM_CLOUD_DEVOPS_ORG -s gb1€Ⅰ㐂دᠢꀉ༒通郂
                         echo "デプロイ中...."
                         export CF_APP_NAME="prod-$IBM_CLOUD_DEVOPS_APP_NAME"
                         cf delete $CF_APP_NAME -f
